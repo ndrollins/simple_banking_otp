@@ -1,23 +1,23 @@
-defmodule TheOtp.SimpleTreasury do
+#defmodule TheOtp.SimpleTreasury do
 
   #def open() do
     #loop(0)
   #end
 
-  def loop(balance) do
-    receive do
-      {:store, amount} ->
-        loop(balance + amount)
-      {:withdraw, amount} ->
-        loop(balance - amount)
-      {:balance, pid} ->
-        send(pid, balance)
-        loop(balance)
-      _ ->
-        loop(balance)
-    end
-  end
-end
+  #def loop(balance) do
+    #receive do
+      #{:store, amount} ->
+        #loop(balance + amount)
+      #{:withdraw, amount} ->
+        #loop(balance - amount)
+      #{:balance, pid} ->
+        #send(pid, balance)
+        #loop(balance)
+      #_ ->
+        #loop(balance)
+    #end
+  #end
+#end
 
 
 defmodule TheOtp.Treasury do
@@ -48,14 +48,14 @@ defmodule TheOtp.Treasury do
   end
 
   def handle_cast({:store, amount}, balance) do
-    {:no_reply, balance + amount}
+    {:noreply, balance + amount}
   end
 
   def handle_cast({:withdraw, amount}, balance) do
-    {:no_reply, balance - amount}
+    {:noreply, balance - amount}
   end
 
-  def handle_call({:balance, _from, balance}) do
+  def handle_call(:balance, _from, balance) do
     {:reply, balance, balance}
   end 
 end
