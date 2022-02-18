@@ -59,3 +59,23 @@ defmodule TheOtp.Treasury do
     {:reply, balance, balance}
   end 
 end
+
+defmodule TheOtp.Treasury.Supervisor do
+  use Supervisor
+  alias TheOtp.Supervisor
+
+  def start_link(init_arg) do
+    Supervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
+  end
+
+  def init(init_arg) do
+    children = [
+      %{
+        id: TheOtp.Treasury, 
+        start: {TheOtp.Treasury, :open, []}
+      }
+    ]
+
+    Supervisor.init(children, strategy: :one_for_one)
+  end
+end
